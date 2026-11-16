@@ -104,6 +104,13 @@ export const config = {
     mapQuery: 'Samskruthi Gokula Convention Centre, J.P. Nagar 7th Phase, Bengaluru 560078',
   },
 
+  // Background music: any embeddable YouTube video ID. Starts when the guest taps the seal.
+  music: {
+    youtubeId: 'J1Gv7vUtAT4',
+    startAt: 0,
+    volume: 60,
+  },
+
   compliments: 'With best compliments from relatives & friends',
 
   share: {

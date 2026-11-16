@@ -6,6 +6,7 @@ import { burstConfetti } from './effects/confetti.js';
 import { createScratch } from './effects/scratch.js';
 import { mandala, corner, divider, bell, icons, toran } from './art.js';
 import { googleCalendarUrl, downloadIcs } from './calendar.js';
+import { initMusic, playMusic, pauseMusic, musicWanted } from './music.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const guestName = readGuestName();
@@ -210,39 +211,6 @@ function venueSection() {
   </section>`;
 }
 
-function rsvpSection() {
-  return `
-  <section class="section rsvp" id="rsvp">
-    <p class="eyebrow reveal">Kindly Respond</p>
-    <h2 class="title reveal" style="--delay:.1s">RSVP</h2>
-    <p class="subtitle reveal" style="--delay:.15s">Let us know if you can join us. Sending opens WhatsApp with your reply ready to go.</p>
-    <form class="rsvp-form reveal" style="--delay:.2s" id="rsvp-form">
-      <label class="field">
-        <span>Your name</span>
-        <input name="name" type="text" maxlength="60" required autocomplete="name" placeholder="Enter your name" value="${esc(guestName)}" />
-      </label>
-      <fieldset class="field choice">
-        <legend>Will you be joining us?</legend>
-        <label><input type="radio" name="attending" value="yes" checked /><span>Joyfully accept</span></label>
-        <label><input type="radio" name="attending" value="no" /><span>Regretfully decline</span></label>
-      </fieldset>
-      <label class="field guests-field">
-        <span>Number of guests</span>
-        <div class="stepper">
-          <button type="button" data-step="-1" aria-label="Fewer guests">−</button>
-          <input name="guests" type="number" min="1" max="20" value="1" inputmode="numeric" />
-          <button type="button" data-step="1" aria-label="More guests">+</button>
-        </div>
-      </label>
-      <label class="field">
-        <span>Message for the couple (optional)</span>
-        <textarea name="message" rows="3" maxlength="300" placeholder="Your blessings & wishes"></textarea>
-      </label>
-      <button class="btn btn-solid" type="submit">${icons.chat()}Send RSVP on WhatsApp</button>
-    </form>
-  </section>`;
-}
-
 function contactSection() {
   return `
   <section class="section contact" id="contact">
@@ -295,10 +263,12 @@ function render() {
       ${countdownSection()}
       ${eventsSection()}
       ${venueSection()}
-      ${rsvpSection()}
       ${contactSection()}
       ${closingSection()}
-    </main>`;
+    </main>
+    <button class="music-btn" id="music" type="button" aria-label="Play music" aria-pressed="false" hidden>
+      ${icons.music()}<span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </button>`;
 }
 
 function setupCover(petals) {
@@ -314,6 +284,7 @@ function setupCover(petals) {
   async function open() {
     if (opening) return;
     opening = true;
+    playMusic();
     const step = reducedMotion ? 0.2 : 1;
     envelope.classList.add('is-opening');
     await wait(350 * step);
@@ -439,38 +410,6 @@ function setupEvents() {
   paint();
 }
 
-function setupRsvp() {
-  const form = $('#rsvp-form');
-  const guests = form.elements.guests;
-  form.addEventListener('click', (event) => {
-    const step = event.target.closest('[data-step]');
-    if (!step) return;
-    guests.value = Math.min(20, Math.max(1, Number(guests.value || 1) + Number(step.dataset.step)));
-  });
-  form.addEventListener('change', () => {
-    $('.guests-field', form).classList.toggle('is-disabled', form.elements.attending.value === 'no');
-  });
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const name = form.elements.name.value.trim();
-    const attending = form.elements.attending.value === 'yes';
-    const message = form.elements.message.value.trim();
-    const lines = [
-      'Namaste! 🙏',
-      `This is ${name}, replying to the invitation for ${first.name} & ${second.name}'s wedding.`,
-      attending
-        ? `✅ I will be attending with ${guests.value} guest${guests.value === '1' ? '' : 's'} (including me).`
-        : '🙏 Sorry, I will not be able to attend. Best wishes to the couple!',
-    ];
-    if (message) lines.push('', `Message: ${message}`);
-    window.open(whatsappUrl(side.phones[0], lines.join('\n')), '_blank', 'noopener');
-    if (attending) {
-      const rect = form.getBoundingClientRect();
-      burstConfetti(window.innerWidth / 2, rect.bottom - 40, { count: 120, power: 11 });
-    }
-  });
-}
-
 function setupShare() {
   $('#share').addEventListener('click', async () => {
     const url = new URL(window.location.href);
@@ -487,6 +426,36 @@ function setupShare() {
     }
     window.open(whatsappUrl('', `${text}\n${url}`), '_blank', 'noopener');
   });
+}
+
+function setupMusic() {
+  const button = $('#music');
+  const enabled = initMusic(config.music, {
+    onStateChange(playing) {
+      button.classList.toggle('is-playing', playing);
+      button.setAttribute('aria-pressed', String(playing));
+      button.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+    },
+  });
+  if (!enabled) return;
+  button.hidden = false;
+
+  let touched = false;
+  button.addEventListener('click', () => {
+    touched = true;
+    if (musicWanted()) pauseMusic();
+    else playMusic();
+  });
+
+  if (!$('#cover')) {
+    document.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (!touched && !event.target.closest('#music')) playMusic();
+      },
+      { once: true },
+    );
+  }
 }
 
 function setupSparkles() {
@@ -516,6 +485,6 @@ setupReveal();
 setupScratch();
 setupCountdown();
 setupEvents();
-setupRsvp();
 setupShare();
+setupMusic();
 setupSparkles();
