@@ -106,7 +106,7 @@ export const config = {
 
   // Background music: any embeddable YouTube video ID. Starts when the guest taps the seal.
   music: {
-    youtubeId: 'J1Gv7vUtAT4',
+    youtubeId: 'fW5uUAt5_So',
     startAt: 0,
     volume: 60,
   },
