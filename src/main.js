@@ -3,7 +3,6 @@ import { config } from './config.js';
 import { readGuestName, readSide, shouldSkipCover } from './params.js';
 import { startPetals } from './effects/petals.js';
 import { burstConfetti } from './effects/confetti.js';
-import { createScratch } from './effects/scratch.js';
 import { mandala, corner, divider, bell, icons, toran } from './art.js';
 import { googleCalendarUrl, downloadIcs } from './calendar.js';
 import { initMusic, playMusic, pauseMusic, musicWanted } from './music.js';
@@ -112,33 +111,6 @@ function inviteSection() {
       <div class="reveal" style="--delay:.6s">${divider()}</div>
       <p class="on-date reveal" style="--delay:.7s">on <strong>${esc(config.wedding.dateLabel)}</strong></p>
     </div>
-  </section>`;
-}
-
-function saveSection() {
-  const s = config.wedding.saveTheDate;
-  const coins = [
-    [s.day, 'Day'],
-    [s.month, 'Month'],
-    [s.year, 'Year'],
-  ];
-  return `
-  <section class="section save" id="save">
-    <p class="eyebrow reveal">Save the Date</p>
-    <h2 class="title reveal" style="--delay:.1s">Scratch to Reveal</h2>
-    <p class="subtitle reveal" style="--delay:.2s">Scratch the golden coins to unveil our special day</p>
-    <div class="coins">
-      ${coins
-        .map(
-          ([value, label], i) => `
-        <div class="coin reveal zoom" style="--delay:${0.25 + i * 0.12}s">
-          <div class="coin-face"><span class="coin-value">${esc(value)}</span><span class="coin-label">${label}</span></div>
-          <div class="coin-scratch" data-scratch></div>
-        </div>`,
-        )
-        .join('')}
-    </div>
-    <p class="save-after"><span>${esc(s.weekday)}</span> · <span>${esc(s.note)}</span></p>
   </section>`;
 }
 
@@ -259,7 +231,6 @@ function render() {
     <main class="main">
       ${heroSection()}
       ${inviteSection()}
-      ${saveSection()}
       ${countdownSection()}
       ${eventsSection()}
       ${venueSection()}
@@ -322,26 +293,6 @@ function setupReveal() {
     { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
   );
   $$('.reveal').forEach((el) => observer.observe(el));
-}
-
-function setupScratch() {
-  const section = $('#save');
-  const coins = $$('[data-scratch]', section);
-  let revealed = 0;
-  coins.forEach((el) => {
-    createScratch(el, {
-      label: 'Scratch',
-      onReveal() {
-        el.closest('.coin').classList.add('revealed');
-        const rect = el.getBoundingClientRect();
-        burstConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, { count: 30, power: 6 });
-        if (++revealed === coins.length) {
-          section.classList.add('done');
-          burstConfetti(window.innerWidth / 2, rect.top, { count: 160, power: 12 });
-        }
-      },
-    });
-  });
 }
 
 function setupCountdown() {
@@ -482,7 +433,6 @@ render();
 const petals = reducedMotion ? null : startPetals($('#petals'));
 setupCover(petals);
 setupReveal();
-setupScratch();
 setupCountdown();
 setupEvents();
 setupShare();

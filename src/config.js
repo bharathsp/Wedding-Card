@@ -60,7 +60,6 @@ export const config = {
     dateLabel: 'Sunday, 24th January 2027',
     shortDate: '24 · 01 · 2027',
     muhurtamISO: '2027-01-24T11:40:00+05:30',
-    saveTheDate: { day: '24', month: 'Jan', year: '2027', weekday: 'Sunday', note: 'Muhurtam · 11:40 AM' },
   },
 
   events: [

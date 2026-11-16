@@ -885,99 +885,6 @@ a {
   color: var(--maroon-600);
 }
 
-/* ---------- Save the date ---------- */
-
-.coins {
-  display: flex;
-  justify-content: center;
-  gap: clamp(10px, 3.5vw, 22px);
-  margin-top: 2rem;
-}
-
-.coin {
-  position: relative;
-  width: clamp(92px, 26vw, 130px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  color: var(--maroon-700);
-  background: radial-gradient(circle at 50% 35%, #fff, var(--ivory) 60%, var(--cream));
-  box-shadow:
-    0 0 0 3px var(--gold-500),
-    0 0 0 7px rgba(233, 196, 106, 0.2),
-    0 14px 30px rgba(0, 0, 0, 0.45);
-}
-
-.coin-face {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.coin-value {
-  font-family: var(--caps);
-  font-size: clamp(1.5rem, 7vw, 2.1rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--maroon-600);
-}
-
-.coin-label {
-  font-family: var(--caps);
-  font-size: 0.62rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold-700);
-}
-
-.coin-scratch {
-  position: absolute;
-  inset: 0;
-}
-
-.coin-scratch canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  touch-action: none;
-  transition: opacity 0.6s ease;
-}
-
-.coin-scratch canvas.is-gone {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.coin.revealed {
-  animation: coinPop 0.6s var(--ease-out);
-}
-
-.coin.revealed .coin-value {
-  animation: fadeUp 0.6s both;
-}
-
-.save-after {
-  margin-top: 1.6rem;
-  font-family: var(--caps);
-  letter-spacing: 0.15em;
-  color: var(--gold-300);
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s var(--ease-out);
-}
-
-.save.done .save-after {
-  opacity: 1;
-  transform: none;
-}
-
 /* ---------- Countdown ---------- */
 
 .cd {
@@ -1758,12 +1665,6 @@ a {
   }
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes coinPop {
-  50% {
-    transform: scale(1.12);
   }
 }
 
