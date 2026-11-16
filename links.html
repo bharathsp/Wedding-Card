@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#3d0a17" />
+    <title>Personalised Invite Links</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="links-page">
+    <main class="links">
+      <p class="eyebrow">Invite Link Generator</p>
+      <h1 class="title">Personalised Links</h1>
+      <p>Enter one guest name per line. Each guest gets a link that greets them by name.</p>
+      <form class="links-form" id="links-form">
+        <label class="field">
+          <span>Inviting family</span>
+          <select name="side">
+            <option value="g">Groom's family</option>
+            <option value="b">Bride's family</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Guest names</span>
+          <textarea name="names" rows="8" placeholder="Bharath&#10;Ravi &amp; Family&#10;Aunty Lakshmi"></textarea>
+        </label>
+        <div class="links-actions">
+          <button class="btn btn-solid" type="submit">Generate links</button>
+          <button class="btn" type="button" id="copy-all">Copy all</button>
+        </div>
+      </form>
+      <ol class="links-out" id="links-out"></ol>
+    </main>
+    <script type="module" src="/src/links.js"></script>
+  </body>
+</html>
