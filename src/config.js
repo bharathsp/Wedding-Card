@@ -10,9 +10,9 @@ export const config = {
     maxLength: 40,
     greeting: 'Dear {name},',
     fallbackGreeting: 'Dear Family & Friends,',
-    closing: 'Dear {name}, your presence will make our celebration complete.',
-    fallbackClosing: 'Your presence will make our celebration complete.',
   },
+
+  closing: 'Your presence will make our celebration complete.',
 
   // ?s=g (groom's family, default) or ?s=b (bride's family).
   sideParams: ['s', 'side'],

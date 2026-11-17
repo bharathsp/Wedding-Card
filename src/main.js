@@ -3,7 +3,8 @@ import { config } from './config.js';
 import { readGuestName, readSide, shouldSkipCover } from './params.js';
 import { startPetals } from './effects/petals.js';
 import { burstConfetti } from './effects/confetti.js';
-import { mandala, corner, divider, bell, icons, toran } from './art.js';
+import { mandala, corner, divider, bell, icons, toran, heartPhoto } from './art.js';
+import couplePhoto from './assets/couple.jpg';
 import { googleCalendarUrl, downloadIcs } from './calendar.js';
 import { initMusic, playMusic, pauseMusic, musicWanted } from './music.js';
 
@@ -21,7 +22,6 @@ const esc = (value) =>
 
 const personalise = (template, fallback) => (guestName ? template.replace('{name}', guestName) : fallback);
 const greeting = personalise(config.guest.greeting, config.guest.fallbackGreeting);
-const closing = personalise(config.guest.closing, config.guest.fallbackClosing);
 const coupleTitle = `${first.name} weds ${second.name}`;
 const formatPhone = (digits) => digits.replace(/^(\d{5})(\d{5})$/, '$1 $2');
 const telUrl = (digits) => `tel:+${config.countryCode}${digits}`;
@@ -39,7 +39,6 @@ function coverSection() {
   return `
   <section class="cover" id="cover" aria-label="Invitation cover">
     <div class="cover-mandala">${mandala('mandala cover-mandala-svg')}</div>
-    <p class="cover-greeting">${esc(greeting)}</p>
     <p class="cover-sub">You are cordially invited to the wedding of</p>
     <div class="envelope-wrap">
       <div class="envelope" id="envelope">
@@ -101,7 +100,6 @@ function inviteSection() {
   <section class="section invite" id="invite">
     <div class="frame reveal zoom">
       ${['tl', 'tr', 'bl', 'br'].map((pos) => `<span class="corner corner-${pos}">${corner()}</span>`).join('')}
-      <p class="frame-greeting reveal">${esc(greeting)}</p>
       <p class="hosts reveal" style="--delay:.1s">${esc(side.hosts)}</p>
       <p class="invite-text reveal" style="--delay:.2s">${esc(inviteText)}</p>
       <div class="reveal" style="--delay:.3s">${divider()}</div>
@@ -209,7 +207,7 @@ function closingSection() {
   return `
   <footer class="section closing" id="closing">
     <div class="diyas" aria-hidden="true">${'<span class="diya"></span>'.repeat(5)}</div>
-    <p class="closing-text reveal">${esc(closing)}</p>
+    <p class="closing-text reveal">${esc(config.closing)}</p>
     <p class="compliments reveal" style="--delay:.1s">${esc(config.compliments)}</p>
     <div class="reveal" style="--delay:.15s">${divider()}</div>
     <div class="from reveal" style="--delay:.2s">
@@ -219,7 +217,14 @@ function closingSection() {
       <p class="from-phones">${side.phones.map((p) => `<a href="${telUrl(p)}">${formatPhone(p)}</a>`).join(' / ')}</p>
     </div>
     <button class="btn btn-solid share-btn reveal" style="--delay:.3s" type="button" id="share">${icons.share()}Share the Invitation</button>
-    <p class="signature">${esc(first.name)} <span class="heart">${icons.heart()}</span> ${esc(second.name)}<br /><small>${esc(config.wedding.shortDate)}</small></p>
+    <div class="signature">
+      <p class="signature-names">
+        <span>${esc(first.name)}</span>
+        <span class="heart-photo">${heartPhoto(couplePhoto, `${first.name} & ${second.name}`)}</span>
+        <span>${esc(second.name)}</span>
+      </p>
+      <small>${esc(config.wedding.shortDate)}</small>
+    </div>
   </footer>`;
 }
 

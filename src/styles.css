@@ -135,16 +135,6 @@ a {
   animation: spin 120s linear infinite;
 }
 
-.cover-greeting {
-  position: relative;
-  font-family: var(--script);
-  font-size: clamp(2.3rem, 10vw, 3.4rem);
-  line-height: 1.2;
-  color: var(--gold-300);
-  text-shadow: 0 0 24px rgba(233, 196, 106, 0.35);
-  animation: fadeUp 1s 0.2s both var(--ease-out);
-}
-
 .cover-sub {
   position: relative;
   max-width: 22rem;
@@ -799,12 +789,6 @@ a {
   transform: scale(-1);
 }
 
-.frame-greeting {
-  font-family: var(--script);
-  font-size: 2rem;
-  color: var(--maroon-600);
-}
-
 .hosts {
   margin-top: 0.6rem;
   font-family: var(--caps);
@@ -1390,30 +1374,44 @@ a {
 
 .signature {
   margin-top: 2.6rem;
+}
+
+.signature-names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.4rem, 3vw, 1rem);
   font-family: var(--script);
-  font-size: 2rem;
+  font-size: clamp(1.9rem, 8vw, 2.4rem);
   line-height: 1.2;
   color: var(--gold-300);
 }
 
 .signature small {
+  display: block;
+  margin-top: 0.4rem;
   font-family: var(--caps);
   font-size: 0.75rem;
   letter-spacing: 0.25em;
   color: rgba(255, 248, 236, 0.6);
 }
 
-.signature .heart {
+.heart-photo {
   display: inline-block;
-  color: var(--rose);
-  animation: heartbeat 1.6s ease-in-out infinite;
+  width: clamp(110px, 32vw, 150px);
+  animation: heartbeat 2.4s ease-in-out infinite;
 }
 
-.signature .heart svg {
-  width: 0.7em;
-  height: 0.7em;
-  fill: var(--rose);
-  vertical-align: middle;
+.heart-photo-svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 14px rgba(214, 85, 107, 0.55)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
+}
+
+.heart-outline {
+  stroke: var(--gold-400);
+  stroke-width: 2.5;
 }
 
 /* ---------- Music ---------- */
@@ -1731,13 +1729,13 @@ a {
     transform: scale(1);
   }
   15% {
-    transform: scale(1.25);
+    transform: scale(1.08);
   }
   30% {
     transform: scale(1);
   }
   45% {
-    transform: scale(1.18);
+    transform: scale(1.05);
   }
 }
 

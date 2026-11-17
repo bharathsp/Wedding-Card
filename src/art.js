@@ -82,8 +82,19 @@ export const icons = {
   share: () =>
     svg(`<circle cx="23" cy="7" r="3.5"/><circle cx="9" cy="16" r="3.5"/><circle cx="23" cy="25" r="3.5"/><path d="M12 14.3l8-5.6M12 17.7l8 5.6"/>`),
   music: () => svg(`<path d="M12 24V7l14-3v17"/><circle cx="8.5" cy="24" r="3.5"/><circle cx="22.5" cy="21" r="3.5"/>`),
-  heart: () => svg(`<path d="M16 27S4 19.5 4 11.5A6 6 0 0 1 16 9a6 6 0 0 1 12 2.5C28 19.5 16 27 16 27z"/>`),
 };
+
+const HEART_PATH =
+  'M50 90C20 70 0 52 0 28 0 12 12 0 27 0c11 0 19 7 23 16 4-9 12-16 23-16 15 0 27 12 27 28 0 24-20 42-50 62z';
+
+// The image offsets frame the couple's faces inside the two lobes of the heart.
+export const heartPhoto = (src, alt) => `<svg class="heart-photo-svg" viewBox="-4 -4 108 100" role="img" aria-label="${alt}">
+  <defs><clipPath id="heart-clip"><path d="${HEART_PATH}"/></clipPath></defs>
+  <g clip-path="url(#heart-clip)">
+    <image href="${src}" x="-47" y="-42" width="190" height="162" preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <path class="heart-outline" d="${HEART_PATH}" fill="none"/>
+</svg>`;
 
 export function toran(strands = 17) {
   const items = Array.from({ length: strands }, (_, i) => {
