@@ -219,9 +219,9 @@ function closingSection() {
     <button class="btn btn-solid share-btn reveal" style="--delay:.3s" type="button" id="share">${icons.share()}Share the Invitation</button>
     <div class="signature">
       <p class="signature-names">
-        <span>${esc(first.name)}</span>
-        <span class="heart-photo">${heartPhoto(couplePhoto, `${first.name} & ${second.name}`)}</span>
-        <span>${esc(second.name)}</span>
+        <span>${esc(config.groom.name)}</span>
+        <span class="heart-photo">${heartPhoto(couplePhoto, `${config.groom.name} & ${config.bride.name}`)}</span>
+        <span>${esc(config.bride.name)}</span>
       </p>
       <small>${esc(config.wedding.shortDate)}</small>
     </div>
