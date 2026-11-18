@@ -513,6 +513,21 @@ a {
   animation: fadeUp 1s 0.7s both var(--ease-out);
 }
 
+.hero-invite {
+  margin-top: 0.3rem;
+  font-family: var(--caps);
+  font-size: clamp(0.78rem, 3.2vw, 0.92rem);
+  letter-spacing: 0.22em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  opacity: 0;
+}
+
+.opened .hero-invite {
+  animation: fadeUp 1s 0.85s both var(--ease-out);
+}
+
 .hero-stage {
   position: relative;
   display: grid;
@@ -1237,37 +1252,6 @@ a {
   box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.2);
 }
 
-/* ---------- Contact ---------- */
-
-.contacts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.contact-card {
-  padding: 1.2rem;
-  border: 1px solid rgba(233, 196, 106, 0.4);
-  border-radius: 16px;
-  background: linear-gradient(160deg, rgba(122, 26, 50, 0.55), rgba(38, 5, 14, 0.6));
-}
-
-.contact-number {
-  display: block;
-  margin-bottom: 0.8rem;
-  font-family: var(--caps);
-  font-size: 1.2rem;
-  letter-spacing: 0.08em;
-  color: var(--gold-300);
-}
-
-.contact-actions {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
 /* ---------- Closing ---------- */
 
 .closing {
@@ -1385,15 +1369,6 @@ a {
   font-size: clamp(1.9rem, 8vw, 2.4rem);
   line-height: 1.2;
   color: var(--gold-300);
-}
-
-.signature small {
-  display: block;
-  margin-top: 0.4rem;
-  font-family: var(--caps);
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: rgba(255, 248, 236, 0.6);
 }
 
 .heart-photo {

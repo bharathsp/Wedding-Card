@@ -75,10 +75,6 @@ export const icons = {
       <path d="M7 21.5h18"/>`, 'icon ceremony'),
   calendar: () => svg(`<rect x="5" y="7" width="22" height="20" rx="3"/><path d="M5 13h22M11 4v6M21 4v6"/>`),
   pin: () => svg(`<path d="M16 29s9-8.2 9-15a9 9 0 0 0-18 0c0 6.8 9 15 9 15z"/><circle cx="16" cy="14" r="3.2"/>`),
-  phone: () =>
-    svg(`<path d="M8 4h4l2 6-3 2a15 15 0 0 0 9 9l2-3 6 2v4a2 2 0 0 1-2 2C14 26 6 18 6 6a2 2 0 0 1 2-2z"/>`),
-  chat: () =>
-    svg(`<path d="M5 26l1.8-5.2A10.5 10.5 0 1 1 11 25z"/><path d="M12 12.5c.5 3 3.5 6 6.5 6.8l1.6-1.6 2.4 1.2"/>`),
   share: () =>
     svg(`<circle cx="23" cy="7" r="3.5"/><circle cx="9" cy="16" r="3.5"/><circle cx="23" cy="25" r="3.5"/><path d="M12 14.3l8-5.6M12 17.7l8 5.6"/>`),
   music: () => svg(`<path d="M12 24V7l14-3v17"/><circle cx="8.5" cy="24" r="3.5"/><circle cx="22.5" cy="21" r="3.5"/>`),

@@ -9,7 +9,8 @@ export const config = {
     params: ['to', 'name', 'guest'],
     maxLength: 40,
     greeting: 'Dear {name},',
-    fallbackGreeting: 'Dear Family & Friends,',
+    fallbackGreeting: 'Dear Family and Friends,',
+    invite: ['You are invited', 'to celebrate our wedding'],
   },
 
   closing: 'Your presence will make our celebration complete.',
@@ -22,23 +23,27 @@ export const config = {
   },
   defaultSide: 'groom',
 
-  invocations: ['|| Om Sri Ganeshaya Namaha ||', '|| Shri Revanasiddeshwara Prasanna ||'],
+  invocations: ['|| Om Sri Ganeshaya Namaha ||', '|| Shri Revanasiddeshwara Swami Prasanna ||'],
 
   groom: {
     name: 'Bharath',
     prefix: 'Chi. Ry.',
     fullName: 'Bharath S.P',
     qualification: 'B.Tech',
-    hostLine: 'Grandson of Late Sri Somaiah Shetty & Late Smt. Trejavatamma',
-    guestLine: 'Son of Smt. M.G. Revathi & Sri S. Prasad',
+    // Each inner array is one paragraph; each string in it is shown on its own line.
+    hostLines: [
+      ['Grandson of Late Smt. Trejavatamma &', 'Late Sri Somaiah Shetty'],
+      ['Grandson of Smt. Prema &', 'Late Sri S.M. Guptha'],
+    ],
+    guestLines: [['Son of Smt. M.G. Revathi &', 'Sri S. Prasad']],
   },
   bride: {
     name: 'Sanjana',
     prefix: 'Chi. Sou.',
     fullName: 'Sanjana J',
     qualification: 'B.Tech',
-    hostLine: '',
-    guestLine: 'Daughter of Smt. Soujanya & Sri Chandrashekar Jonnagadla',
+    hostLines: [],
+    guestLines: [['Daughter of Smt. Soujanya &', 'Sri Chandrashekar Jonnagadla']],
   },
 
   sides: {
@@ -58,7 +63,6 @@ export const config = {
 
   wedding: {
     dateLabel: 'Sunday, 24th January 2027',
-    shortDate: '24 · 01 · 2027',
     muhurtamISO: '2027-01-24T11:40:00+05:30',
   },
 

@@ -69,6 +69,7 @@ function heroSection() {
       <div class="om" aria-hidden="true">ॐ</div>
       ${config.invocations.map((line, i) => `<p class="invocation" style="--i:${i}">${esc(line)}</p>`).join('')}
       <p class="hero-greeting">${esc(greeting)}</p>
+      <p class="hero-invite">${config.guest.invite.map(esc).join('<br />')}</p>
       <div class="hero-stage">
         ${mandala()}
         <h1 class="names" aria-label="${esc(coupleTitle)}">
@@ -84,13 +85,13 @@ function heroSection() {
   </header>`;
 }
 
-function personBlock(person, line, delay) {
+function personBlock(person, paragraphs, delay) {
   return `
     <div class="person reveal" style="--delay:${delay}s">
       <p class="person-prefix">${esc(person.prefix)}</p>
       <h3 class="person-name">${esc(person.fullName)}</h3>
       <p class="person-qual">${esc(person.qualification)}</p>
-      ${line ? `<p class="person-line">${esc(line)}</p>` : ''}
+      ${paragraphs.map((lines) => `<p class="person-line">${lines.map(esc).join('<br />')}</p>`).join('')}
     </div>`;
 }
 
@@ -103,9 +104,9 @@ function inviteSection() {
       <p class="hosts reveal" style="--delay:.1s">${esc(side.hosts)}</p>
       <p class="invite-text reveal" style="--delay:.2s">${esc(inviteText)}</p>
       <div class="reveal" style="--delay:.3s">${divider()}</div>
-      ${personBlock(first, first.hostLine, 0.35)}
+      ${personBlock(first, first.hostLines, 0.35)}
       <div class="with reveal" style="--delay:.45s"><span>with</span></div>
-      ${personBlock(second, second.guestLine, 0.55)}
+      ${personBlock(second, second.guestLines, 0.55)}
       <div class="reveal" style="--delay:.6s">${divider()}</div>
       <p class="on-date reveal" style="--delay:.7s">on <strong>${esc(config.wedding.dateLabel)}</strong></p>
     </div>
@@ -136,8 +137,7 @@ function countdownSection() {
 function eventsSection() {
   return `
   <section class="section events" id="events">
-    <p class="eyebrow reveal">The Celebrations</p>
-    <h2 class="title reveal" style="--delay:.1s">Join Us</h2>
+    <h2 class="title reveal">Join Us</h2>
     <div class="timeline">
       <span class="timeline-progress" aria-hidden="true"></span>
       ${config.events
@@ -167,8 +167,7 @@ function eventsSection() {
 function venueSection() {
   return `
   <section class="section venue" id="venue">
-    <p class="eyebrow reveal">The Venue</p>
-    <h2 class="title reveal" style="--delay:.1s">Where to Find Us</h2>
+    <h2 class="title reveal">The Venue</h2>
     <div class="venue-card reveal zoom" style="--delay:.15s">
       <div class="venue-pin">${icons.pin()}</div>
       <h3 class="venue-name">${esc(config.venue.name)}</h3>
@@ -177,28 +176,6 @@ function venueSection() {
         <iframe title="Map to ${esc(config.venue.name)}" src="${mapsEmbed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <a class="btn btn-solid" href="${mapsDirections}" target="_blank" rel="noopener">${icons.pin()}Get Directions</a>
-    </div>
-  </section>`;
-}
-
-function contactSection() {
-  return `
-  <section class="section contact" id="contact">
-    <p class="eyebrow reveal">For Any Queries</p>
-    <h2 class="title reveal" style="--delay:.1s">Reach Us</h2>
-    <div class="contacts">
-      ${side.phones
-        .map(
-          (phone, i) => `
-        <div class="contact-card reveal" style="--delay:${0.15 + i * 0.1}s">
-          <span class="contact-number">${formatPhone(phone)}</span>
-          <div class="contact-actions">
-            <a class="btn btn-small" href="${telUrl(phone)}">${icons.phone()}Call</a>
-            <a class="btn btn-small" href="${whatsappUrl(phone)}" target="_blank" rel="noopener">${icons.chat()}WhatsApp</a>
-          </div>
-        </div>`,
-        )
-        .join('')}
     </div>
   </section>`;
 }
@@ -222,9 +199,7 @@ function closingSection() {
         <span>${esc(config.groom.name)}</span>
         <span class="heart-photo">${heartPhoto(couplePhoto, `${config.groom.name} & ${config.bride.name}`)}</span>
         <span>${esc(config.bride.name)}</span>
-      </p>
-      <small>${esc(config.wedding.shortDate)}</small>
-    </div>
+      </p>    </div>
   </footer>`;
 }
 
@@ -239,7 +214,6 @@ function render() {
       ${countdownSection()}
       ${eventsSection()}
       ${venueSection()}
-      ${contactSection()}
       ${closingSection()}
     </main>
     <button class="music-btn" id="music" type="button" aria-label="Play music" aria-pressed="false" hidden>
